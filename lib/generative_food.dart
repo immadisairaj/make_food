@@ -40,7 +40,9 @@ class GenerativeFood {
         'Do not give the result in Markdown.';
 
     final response = await _model.generateContent([Content.text(prompt)]);
+    String text =
+        response.text!.replaceAll('```json', '').replaceAll('```', '');
 
-    return MakeFood.fromRawJson(response.text!);
+    return MakeFood.fromRawJson(text);
   }
 }
