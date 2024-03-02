@@ -6,21 +6,24 @@ class FoodPage extends StatelessWidget {
   const FoodPage({
     super.key,
     required this.foodType,
+    required this.food,
     required this.isVegetarian,
   });
 
   final String foodType;
+  final String food;
   final bool isVegetarian;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recipe ($foodType)'),
+        title: Text('Recipe ($foodType - $food)'),
       ),
       body: FutureBuilder(
         future: getIt<GenerativeFood>().makeFood(
           foodType,
+          food,
           isVegetarian: isVegetarian,
         ),
         builder: (context, snapshot) {

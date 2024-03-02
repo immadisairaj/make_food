@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   String foodType = '';
+  String food = '';
   bool isVegetarian = false;
 
   @override
@@ -43,6 +44,18 @@ class HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: TextField(
+                    decoration: const InputDecoration(
+                      labelText: 'Enter food',
+                    ),
+                    onChanged: (value) {
+                      food = value;
+                    },
+                  ),
+                ),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -50,6 +63,7 @@ class HomePageState extends State<HomePage> {
                       MaterialPageRoute(
                         builder: (context) => FoodPage(
                           foodType: foodType,
+                          food: food,
                           isVegetarian: isVegetarian,
                         ),
                       ),

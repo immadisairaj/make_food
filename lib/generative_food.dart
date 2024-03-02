@@ -30,11 +30,13 @@ class GenerativeFood {
 
   final GenerativeModel _model;
 
-  Future<MakeFood?> makeFood(String foodType,
+  /// foodType - something around indian/continental
+  /// food - breakfast, lunch, or something
+  Future<MakeFood?> makeFood(String foodType, String food,
       {bool isVegetarian = false}) async {
     final vegetarianString = isVegetarian ? '(vegetarian)' : '';
     final prompt =
-        'Give me a recipe of a random Indian food type : $foodType $vegetarianString step by step instruction.'
+        'Give me a recipe of a random $foodType food : $food $vegetarianString step by step instruction.'
         'Give only one item.'
         'Give the result in json with the scheme: {item: "", ingredients: ["", "", ...], procedure: ["", "", ...]}.'
         'Do not give the result in Markdown.';
