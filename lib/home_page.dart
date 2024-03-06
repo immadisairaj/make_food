@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  String foodType = '';
+  String crusine = '';
   String food = '';
   bool isVegetarian = false;
 
@@ -36,10 +36,11 @@ class HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: TextField(
                     decoration: const InputDecoration(
-                      labelText: 'Enter food type',
+                      labelText: 'Enter Crusine',
                     ),
+                    maxLength: 23,
                     onChanged: (value) {
-                      foodType = value;
+                      crusine = value;
                     },
                   ),
                 ),
@@ -50,6 +51,7 @@ class HomePageState extends State<HomePage> {
                     decoration: const InputDecoration(
                       labelText: 'Enter food',
                     ),
+                    maxLength: 23,
                     onChanged: (value) {
                       food = value;
                     },
@@ -62,7 +64,7 @@ class HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => FoodPage(
-                          foodType: foodType,
+                          crusine: crusine,
                           food: food,
                           isVegetarian: isVegetarian,
                         ),

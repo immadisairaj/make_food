@@ -5,12 +5,12 @@ import 'package:make_food/injection_container.dart';
 class FoodPage extends StatelessWidget {
   const FoodPage({
     super.key,
-    required this.foodType,
+    required this.crusine,
     required this.food,
     required this.isVegetarian,
   });
 
-  final String foodType;
+  final String crusine;
   final String food;
   final bool isVegetarian;
 
@@ -18,11 +18,11 @@ class FoodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recipe ($foodType - $food)'),
+        title: Text('Recipe ($crusine - $food)'),
       ),
       body: FutureBuilder(
         future: getIt<GenerativeFood>().makeFood(
-          foodType,
+          crusine,
           food,
           isVegetarian: isVegetarian,
         ),
