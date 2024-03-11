@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:make_food/crusine.dart';
 import 'package:make_food/extensions.dart';
 import 'package:make_food/food_page.dart';
 
@@ -10,9 +11,25 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  Crusine crusineDropdown = Crusine.any;
   String crusine = '';
   String food = '';
   bool isVegetarian = false;
+
+  submit() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FoodPage(
+          crusine: crusineDropdown == Crusine.custom
+              ? crusine
+              : crusineDropdown.name,
+          food: food,
+          isVegetarian: isVegetarian,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +48,40 @@ class HomePageState extends State<HomePage> {
                   style: context.titleLarge,
                 ),
                 const SizedBox(height: 20),
-                // TODO: maybe put a dropdown with type of foods
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      labelText: 'Enter Crusine',
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text('Select Crusine'),
+                    DropdownButton<Crusine>(
+                      value: crusineDropdown,
+                      onChanged: (Crusine? newValue) {
+                        setState(() {
+                          crusineDropdown = newValue!;
+                        });
+                      },
+                      items: Crusine.values.map((Crusine crusine) {
+                        return DropdownMenuItem<Crusine>(
+                            value: crusine,
+                            child: Text(crusine.name.toString()));
+                      }).toList(),
                     ),
-                    maxLength: 23,
-                    onChanged: (value) {
-                      crusine = value;
-                    },
-                  ),
+                  ],
                 ),
+                const SizedBox(height: 10),
+                if (crusineDropdown == Crusine.custom)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        labelText: 'Enter custom crusine',
+                      ),
+                      maxLength: 23,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (value) {
+                        crusine = value;
+                      },
+                    ),
+                  ),
                 const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -52,6 +90,8 @@ class HomePageState extends State<HomePage> {
                       labelText: 'Enter food',
                     ),
                     maxLength: 23,
+                    textInputAction: TextInputAction.go,
+                    onSubmitted: (value) => submit(),
                     onChanged: (value) {
                       food = value;
                     },
@@ -59,18 +99,7 @@ class HomePageState extends State<HomePage> {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FoodPage(
-                          crusine: crusine,
-                          food: food,
-                          isVegetarian: isVegetarian,
-                        ),
-                      ),
-                    );
-                  },
+                  onPressed: submit,
                   child: Text(
                     'Go!',
                     style: context.labelLarge,

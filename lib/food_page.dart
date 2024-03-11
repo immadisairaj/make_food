@@ -66,10 +66,10 @@ class FoodPage extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: food.ingredients.length,
                       itemBuilder: (context, index) {
-                        return Text(
-                          '${index + 1}. ${food.ingredients[index]}',
-                          style: const TextStyle(fontSize: 16),
-                        );
+                        final content = food.ingredients[index];
+                        final isTitle = content.contains('For the') &&
+                            content.contains(':');
+                        return ListContent(isTitle: isTitle, content: content);
                       },
                     ),
                   ),
@@ -89,10 +89,10 @@ class FoodPage extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: food.procedure.length,
                       itemBuilder: (context, index) {
-                        return Text(
-                          '${index + 1}. ${food.procedure[index]}',
-                          style: const TextStyle(fontSize: 16),
-                        );
+                        final content = food.procedure[index];
+                        final isTitle = content.contains('To make') &&
+                            content.contains(':');
+                        return ListContent(isTitle: isTitle, content: content);
                       },
                     ),
                   ),
@@ -102,6 +102,40 @@ class FoodPage extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class ListContent extends StatelessWidget {
+  const ListContent({
+    super.key,
+    required this.isTitle,
+    required this.content,
+  });
+
+  final bool isTitle;
+  final String content;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (!isTitle)
+          const Text(
+            '- ',
+            style: TextStyle(fontSize: 16),
+          ),
+        Expanded(
+          child: Text(
+            content,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: isTitle ? FontWeight.bold : null,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

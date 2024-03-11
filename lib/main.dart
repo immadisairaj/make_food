@@ -4,6 +4,8 @@ import 'package:make_food/home_page.dart';
 import 'package:make_food/injection_container.dart' as di;
 
 void main() {
+  // throw errors for future builders
+  FutureBuilder.debugRethrowError = true;
   di.setUp();
   runApp(const MyApp());
 }

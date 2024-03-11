@@ -1,5 +1,9 @@
 // TODO(immadisairaj): try to use this
 enum Crusine {
+  any('Any'),
+
+  indian('Indian'),
+
   continental('Continental'),
 
   thai('Thai'),
@@ -22,7 +26,7 @@ enum Crusine {
 
   french('French'),
 
-  custom('custom');
+  custom('Custom');
 
   final String name;
   const Crusine(this.name);
