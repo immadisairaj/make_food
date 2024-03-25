@@ -18,89 +18,112 @@ class FoodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recipe ($crusine - $food)'),
+        title: const Text('Recipe'),
       ),
-      body: FutureBuilder(
-        future: getIt<GenerativeFood>().makeFood(
-          crusine,
-          food,
-          isVegetarian: isVegetarian,
-        ),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('Error getting your recipe :('
-                  '\nLog: ${snapshot.error.toString()}'),
-            );
-          }
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          final food = snapshot.data;
-          return Scrollbar(
-            thumbVisibility: true,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    child: Text(
-                      food!.item,
-                      style: const TextStyle(fontSize: 24),
-                    ),
-                  ),
-                  const Divider(),
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    child: const Text(
-                      'Ingredients:',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                  const Divider(),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: ListView.builder(
-                      primary: false,
-                      shrinkWrap: true,
-                      itemCount: food.ingredients.length,
-                      itemBuilder: (context, index) {
-                        final content = food.ingredients[index];
-                        final isTitle = content.contains('For the') &&
-                            content.contains(':');
-                        return ListContent(isTitle: isTitle, content: content);
-                      },
-                    ),
-                  ),
-                  const Divider(),
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    child: const Text(
-                      'Steps to Prepare:',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                  const Divider(),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: ListView.builder(
-                      primary: false,
-                      shrinkWrap: true,
-                      itemCount: food.procedure.length,
-                      itemBuilder: (context, index) {
-                        final content = food.procedure[index];
-                        final isTitle = content.contains('To make') &&
-                            content.contains(':');
-                        return ListContent(isTitle: isTitle, content: content);
-                      },
-                    ),
-                  ),
-                ],
-              ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Input: $crusine crusine - $food${isVegetarian ? ' (veg)' : ''}',
+              style: const TextStyle(fontSize: 15),
+              textAlign: TextAlign.center,
             ),
-          );
-        },
+          ),
+          const Divider(
+            height: 2,
+          ),
+          Expanded(
+            child: FutureBuilder(
+              future: getIt<GenerativeFood>().makeFood(
+                crusine,
+                food,
+                isVegetarian: isVegetarian,
+              ),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text(
+                      'Error getting your recipe :('
+                      '\nLog: ${snapshot.error.toString()}',
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                }
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                final food = snapshot.data;
+                return Scrollbar(
+                  thumbVisibility: true,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          child: Text(
+                            food!.item,
+                            style: const TextStyle(fontSize: 24),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        const Divider(),
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          child: const Text(
+                            'Ingredients:',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                        const Divider(),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                          child: ListView.builder(
+                            primary: false,
+                            shrinkWrap: true,
+                            itemCount: food.ingredients.length,
+                            itemBuilder: (context, index) {
+                              final content = food.ingredients[index];
+                              final isTitle = content.contains('For the') &&
+                                  content.contains(':');
+                              return ListContent(
+                                  isTitle: isTitle, content: content);
+                            },
+                          ),
+                        ),
+                        const Divider(),
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          child: const Text(
+                            'Steps to Prepare:',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                        const Divider(),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                          child: ListView.builder(
+                            primary: false,
+                            shrinkWrap: true,
+                            itemCount: food.procedure.length,
+                            itemBuilder: (context, index) {
+                              final content = food.procedure[index];
+                              final isTitle = content.contains('To make') &&
+                                  content.contains(':');
+                              return ListContent(
+                                  isTitle: isTitle, content: content);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
