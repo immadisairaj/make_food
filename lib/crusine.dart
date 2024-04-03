@@ -1,18 +1,25 @@
-// TODO(immadisairaj): try to use this
 enum Crusine {
   any('Any'),
 
-  indian('Indian'),
+  american('American'),
+
+  asian('Asian'),
+
+  chinese('Chinese'),
 
   continental('Continental'),
 
-  thai('Thai'),
+  french('French'),
+
+  indian('Indian'),
 
   italian('Italian'),
 
   japanese('Japanese'),
 
-  chinese('Chinese'),
+  korean('Korean'),
+
+  lebanese('Lebanese'),
 
   mediterranean('Mediterranean'),
 
@@ -20,11 +27,7 @@ enum Crusine {
 
   spanish('Spanish'),
 
-  lebanese('Lebanese'),
-
-  korean('Korean'),
-
-  french('French'),
+  thai('Thai'),
 
   custom('Custom');
 

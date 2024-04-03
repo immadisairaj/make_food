@@ -4,8 +4,9 @@ import 'package:make_food/make_food.dart';
 const String geminiApiKey = 'GEMINI_API_KEY';
 
 enum GenerativeModelType {
-  geminiPro(name: 'gemini-pro'),
-  geminiProVision(name: 'gemini-pro-vision');
+  gemini1Dot0Pro(name: 'gemini-1.0-pro');
+  // gemini1Dot5Pro(name: 'gemini-1.5-pro-latest'),
+  // gemini1Dot0ProVision(name: 'gemini-1.0-pro-vision-latest');
 
   final String name;
 
@@ -14,7 +15,7 @@ enum GenerativeModelType {
 
 class GenerativeFood {
   GenerativeFood({
-    GenerativeModelType type = GenerativeModelType.geminiPro,
+    GenerativeModelType type = GenerativeModelType.gemini1Dot0Pro,
   })  : assert(
           const bool.hasEnvironment(geminiApiKey),
           'Api Key is not Found',

@@ -25,7 +25,7 @@ class FoodPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Input: $crusine crusine - $food${isVegetarian ? ' (veg)' : ''}',
+              'Input: $crusine crusine - ${food.isEmpty ? 'random' : food}${isVegetarian ? ' (veg)' : ''}',
               style: const TextStyle(fontSize: 15),
               textAlign: TextAlign.center,
             ),
