@@ -16,3 +16,9 @@ This is a small application that can give results of a requested reciepe or a ra
 ```sh
 flutter run --dart-define-from-file api-keys.json
 ```
+
+# Screenshots
+
+<img src="https://github.com/immadisairaj/make_food/assets/40348358/827de6d9-a70c-4f54-88bb-c855d4477b25" height="500">
+
+<img src="https://github.com/immadisairaj/make_food/assets/40348358/2bce6120-fc31-45c0-9c56-0b16a99588a4" height="500">
