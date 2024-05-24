@@ -1,16 +1,18 @@
-# make_food
+## Make Food
 
-A new Flutter project.
+This is a small application that can give results of a requested reciepe or a random based on input. It uses Gemini under the hood.
 
-## Getting Started
+# Steps to run:
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. To try out the application, you need to generate a Gemini API key. See [https://ai.google.dev/gemini-api/docs/api-key](https://ai.google.dev/gemini-api/docs/api-key) on how to get the API Key.
+2. Create a file name `api-keys.json` in the root directory.
+3. Add the API Key in the file as shown below:
+```json
+{
+    "GEMINI_API_KEY": "<YOUR-API-KEY>" # Replace <YOUR-API-KEY> with your API Key
+}
+```
+4. Run the application using the following command:
+```sh
+flutter run --dart-define-from-file api-keys.json
+```
